@@ -1,0 +1,275 @@
+/* SatQuery AI - Modern ChatGPT-Style Geospatial Intelligence Theme */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-primary: #070a12;
+  --bg-secondary: #0d1322;
+  --bg-card: rgba(15, 23, 42, 0.75);
+  --bg-card-hover: rgba(22, 34, 60, 0.9);
+  --border-subtle: rgba(56, 189, 248, 0.15);
+  --border-glow: rgba(56, 189, 248, 0.4);
+  --accent-cyan: #06b6d4;
+  --accent-sky: #38bdf8;
+  --accent-emerald: #10b981;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base App Container */
+.stApp {
+  background: radial-gradient(circle at 50% -20%, #111d38 0%, #070a12 60%, #04060a 100%) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-main) !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+  background-color: #080d1a !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+[data-testid="stSidebar"] > div:first-child {
+  padding-top: 1.5rem !important;
+}
+
+/* Typography - DO NOT globally override span/i to avoid breaking Material symbols */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main) !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+p {
+  font-family: var(--font-main) !important;
+}
+
+/* Ensure Streamlit internal icons remain intact and never render as broken text */
+[data-testid="stExpanderToggleIcon"],
+[class*="material-symbols"],
+[class*="material-icons"] {
+  font-family: 'Material Symbols Rounded', 'Material Icons', sans-serif !important;
+  font-style: normal !important;
+  letter-spacing: normal !important;
+}
+
+/* Header & Footer clean-up */
+header[data-testid="stHeader"] {
+  background: transparent !important;
+}
+
+footer {
+  display: none !important;
+}
+
+/* Brand Banner Pill */
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  color: var(--accent-cyan);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.brand-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Feature Cards Grid */
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 22px 18px;
+  transition: all 0.25s ease-in-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-glow);
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.2);
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.feature-title {
+  color: #f1f5f9;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.feature-desc {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+/* Search Card Form - Clean, Non-overlapping Layout */
+[data-testid="stForm"] {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  border-radius: 14px !important;
+  padding: 16px 18px !important;
+  margin-bottom: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-testid="stForm"] .stTextInput {
+  margin-bottom: 10px !important;
+}
+
+[data-testid="stForm"] .stTextInput input {
+  background-color: #080e1c !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  font-size: 0.94rem !important;
+}
+
+[data-testid="stForm"] .stTextInput input:focus {
+  border-color: var(--accent-sky) !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
+}
+
+/* Chat Message Styling */
+.chat-bubble-user {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 14px 14px 4px 14px;
+  padding: 14px 18px;
+  margin: 12px 0 14px auto;
+  max-width: 90%;
+  color: #f8fafc;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.chat-bubble-assistant {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 14px 14px 14px 4px;
+  padding: 18px 20px;
+  margin: 12px auto 16px 0;
+  width: 100%;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+/* Metadata Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  color: #38bdf8;
+}
+
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
+  margin-right: 6px;
+}
+
+/* Streamlit Buttons */
+.stButton > button {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Secondary Button Support */
+button[data-testid="baseButton-secondary"],
+button[kind="secondary"] {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
+  color: #e2e8f0 !important;
+}
+
+button[data-testid="baseButton-secondary"]:hover,
+button[kind="secondary"]:hover {
+  background: rgba(51, 65, 85, 0.9) !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+  color: #ffffff !important;
+}
+
+/* Radio buttons in sidebar */
+[data-testid="stSidebar"] [data-testid="stRadio"] label {
+  color: #cbd5e1 !important;
+  font-size: 0.92rem !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  transition: background 0.15s ease !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
+  background: rgba(56, 189, 248, 0.08) !important;
+  color: #f8fafc !important;
+}
