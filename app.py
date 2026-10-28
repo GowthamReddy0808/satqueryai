@@ -70,8 +70,24 @@ if "uploader_key" not in st.session_state:
 # Helper Functions: Image & Telemetry Processing
 # -----------------------------------------------------------------------------
 def get_api_key() -> Optional[str]:
-    """Retrieve the OpenRouter API key supporting both variable naming styles."""
-    return os.getenv("OPENROUTER_API_KEY") or os.getenv("OPEN_ROUTER_API_KEY")
+    """Retrieve the OpenRouter API key supporting session state, env vars, and Streamlit secrets."""
+    if "custom_api_key" in st.session_state and st.session_state["custom_api_key"]:
+        return str(st.session_state["custom_api_key"]).strip()
+
+    env_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPEN_ROUTER_API_KEY")
+    if env_key:
+        return env_key.strip()
+
+    try:
+        if hasattr(st, "secrets"):
+            if "OPENROUTER_API_KEY" in st.secrets:
+                return str(st.secrets["OPENROUTER_API_KEY"]).strip()
+            if "OPEN_ROUTER_API_KEY" in st.secrets:
+                return str(st.secrets["OPEN_ROUTER_API_KEY"]).strip()
+    except Exception:
+        pass
+
+    return None
 
 
 def load_image_from_bytes(image_bytes: bytes, filename: str, mime_type: str = "image/png"):
@@ -337,7 +353,7 @@ def query_satellite_model(
     if not api_key:
         return {
             "success": False,
-            "error": "OpenRouter API Key not found. Please verify OPENROUTER_API_KEY in your .env file."
+            "error": "OpenRouter API Key not found. Please provide an OPENROUTER_API_KEY in the sidebar, .env file, or Streamlit Cloud Secrets."
         }
 
     image_base64 = base64.b64encode(image_bytes).decode("utf-8")
@@ -524,20 +540,35 @@ with st.sidebar:
     st.markdown("---")
 
     # API Connection Status
-    api_key_found = bool(get_api_key())
+    current_key = get_api_key()
+    api_key_found = bool(current_key)
     if api_key_found:
         status_html = """
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #34d399; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #34d399; margin-bottom: 8px;">
             <span class="status-indicator"></span> <strong>API Connected</strong> (OpenRouter)
         </div>
         """
+        st.markdown(status_html, unsafe_allow_html=True)
+        if st.session_state.get("custom_api_key"):
+            if st.button("🔑 Clear Custom Key", use_container_width=True, type="secondary"):
+                del st.session_state["custom_api_key"]
+                st.rerun()
     else:
         status_html = """
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #f87171; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #f87171; margin-bottom: 8px;">
             <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef4444;"></span> <strong>API Key Missing</strong>
         </div>
         """
-    st.markdown(status_html, unsafe_allow_html=True)
+        st.markdown(status_html, unsafe_allow_html=True)
+        user_key_input = st.text_input(
+            "Enter OpenRouter Key",
+            type="password",
+            placeholder="sk-or-v1-...",
+            help="Enter your API key or configure OPENROUTER_API_KEY in Streamlit Secrets."
+        )
+        if user_key_input:
+            st.session_state["custom_api_key"] = user_key_input.strip()
+            st.rerun()
 
     # Configuration Section
     with st.expander("⚙️ Model Configuration", expanded=False):
