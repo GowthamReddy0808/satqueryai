@@ -273,3 +273,77 @@ button[kind="secondary"]:hover {
   background: rgba(56, 189, 248, 0.08) !important;
   color: #f8fafc !important;
 }
+
+/* Tabs Styling */
+[data-testid="stTabs"] [data-baseweb="tab-list"] {
+  gap: 8px !important;
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  padding: 6px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(56, 189, 248, 0.15) !important;
+}
+
+[data-testid="stTabs"] [data-baseweb="tab"] {
+  height: 38px !important;
+  color: #94a3b8 !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  padding: 0 16px !important;
+  transition: all 0.2s ease !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+[data-testid="stTabs"] [aria-selected="true"] {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.15) !important;
+  border-bottom: 2px solid #38bdf8 !important;
+  font-weight: 600 !important;
+}
+
+/* Metric Cards */
+[data-testid="stMetric"] {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border: 1px solid rgba(56, 189, 248, 0.18) !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-testid="stMetricLabel"] {
+  color: #94a3b8 !important;
+  font-size: 0.78rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+[data-testid="stMetricValue"] {
+  color: #f8fafc !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+}
+
+/* Trace Step Box */
+.trace-step-card {
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 3px solid #38bdf8;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.trace-step-title {
+  font-weight: 600;
+  color: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trace-step-detail {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+}
